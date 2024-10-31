@@ -1,4 +1,4 @@
-from rigBuilds.assets.intern.custom_rig import rigBiped
+from OMG.rigBuilds.assets.Intern.custom_rig import rigBiped
 import pymel.core as pm
 
 

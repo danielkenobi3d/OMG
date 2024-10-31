@@ -5,7 +5,7 @@ from RMPY.core import search_hierarchy
 from RMPY.core import controls
 import pymel.core as pm
 from pathlib import Path
-from rigBuilds.assets.default_character import rig_facial
+from OMG.rigBuilds.assets.default_character import rig_facial
 
 
 def import_geometry():
