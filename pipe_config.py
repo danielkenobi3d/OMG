@@ -1,15 +1,8 @@
 import os
 from typing import assert_type
 
-<<<<<<< Updated upstream
-asset_list = ['Intern', 'Senior']
-=======
-<<<<<<< HEAD
+
 asset_list = ['Senior']
-=======
-asset_list = ['Intern', 'Senior']
->>>>>>> d54f131d34b2747febf74e7cef6ad2627913dd95
->>>>>>> Stashed changes
 asset_types = ['Main Characters', 'Props']
 project_path = 'Z:/__07-CLASSE ANIMATION M2_24-25/OMG/04-ASSETS'
 asset_path = 'OMG_A_{}'
