@@ -2,7 +2,7 @@ import os
 from typing import assert_type
 
 
-asset_list = ['Intern','Senior','Worker']
+asset_list = ['Intern','Senior','WorkerA']
 asset_types = ['Main Characters', 'Props']
 project_path = 'Z:/__07-CLASSE ANIMATION M2_24-25/OMG/04-ASSETS'
 asset_path = 'OMG_A_{}'
