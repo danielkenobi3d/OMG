@@ -2,7 +2,8 @@ build_order = ['source', 'rig', 'load data',  'finalize']
 build = {
     'source': [
         ('Import geometry', ['rig_build.import_geometry']),
-        ('Import reference points', ['rig_build.import_reference_points'])
+        ('Import reference points', ['rig_build.import_reference_points']),
+        ('Custom source', ['rig_build.custom_source'])
         ],
     'rig': [
         ('build biped rig', ['rig_build.build_biped_rig']),
