@@ -50,6 +50,7 @@ class RigBypedModel(rigBase.BaseModel):
         self.r_breast = rigBreast.Breast()
         self.l_ear = rigFK.RigFK()
         self.r_ear = rigFK.RigFK()
+        self.cap = rigProp.RigProp()
         self.gums = rigSingleJoint.RigSingleJoint()
         self.rig_output = rigOutput.RigOutput()
 
@@ -84,6 +85,7 @@ class RigByped(rigBase.RigBase):
         self.toes_root = [u'{}_toes00_reference_grp']
         self.gums_root = [u'C_gums00_reference_pnt']
         self.ears=['{}_ear00_reference_pnt', '{}_ear01_reference_pnt', '{}_ear02_reference_pnt', '{}_ear03_reference_pnt', '{}_ear04_reference_pnt']
+        self.cap_root = ['C_cap00_reference_pnt']
 
     @property
     def neck_head(self):
@@ -232,17 +234,20 @@ class RigByped(rigBase.RigBase):
         self.neck_head.create_point_base(*self.neck_root)
         self.neck_head.set_parent(self.spine, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
         self.neck_head_space_switch.build(self.neck_head, self.rig_world, self.cog)
+
         l_ear_points = [each.format('L') for each in self.ears]
         self.l_ear.create_point_base(*l_ear_points, orient_type = 'point_orient')
         r_ear_points = [each.format('R') for each in self.ears]
         self.r_ear.create_point_base(*r_ear_points, orient_type = 'point_orient')
+
         self.l_ear.set_parent(self.neck_head,  create_hierarchy_joints=True, output_joint_rig=self.rig_output)
         self.r_ear.set_parent(self.neck_head,  create_hierarchy_joints=True, output_joint_rig=self.rig_output)
 
+        self.cap.create_point_base(self.cap_root)
+        self.cap.set_parent(self.neck_head,create_hierarchy_joints=True, output_joint_rig=self.rig_output)
+
         self.l_leg.set_parent(self.hip, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
         self.r_leg.set_parent(self.hip, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
-
-
 
 if __name__ == '__main__':
     rig_biped = RigByped()

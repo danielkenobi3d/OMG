@@ -35,10 +35,11 @@ def create_facial_rig():
     for each in facial_definition.direct_blendshape:
         static_connection(each, facial_definition.direct_blendshape[each])
     rig_tools = rigBase.RigBase()
-    rm.lock_and_hide_attributes('L_facial00_mouthCorner_ctr', bit_string='1111111111')
-    rm.lock_and_hide_attributes('C_facial00_mouth_ctr', bit_string='1111111111')
-    rm.lock_and_hide_attributes('R_facial00_mouthCorner_ctr', bit_string='1111111111')
-    rm.lock_and_hide_attributes('L_facial00_brow_ctr', bit_string='1111111111')
+    rm.lock_and_hide_attributes('L_facial00_mouthCorner_ctr', bit_string='1110000001')
+    rm.lock_and_hide_attributes('C_facial00_mouth_ctr', bit_string='1110000001')
+    rm.lock_and_hide_attributes('R_facial00_mouthCorner_ctr', bit_string='1110000001')
+    rm.lock_and_hide_attributes('L_facial00_brow_ctr', bit_string='1110000001')
+    rm.lock_and_hide_attributes('R_facial00_brow_ctr', bit_string='1110000001')
 
 
 
