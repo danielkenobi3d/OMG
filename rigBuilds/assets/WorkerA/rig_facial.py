@@ -8,6 +8,8 @@ from RMPY.core import rig_core
 from RMPY.creators import blendShape
 from builder.pipeline import environment
 from RMPY.rig.facial import rigJaw
+from RMPY.rig import rigBase
+from RMPY.core import rig_core as rm
 
 
 def build():
@@ -32,6 +34,13 @@ def create_facial_rig():
     # pm.setAttr('character.visibility', False)
     for each in facial_definition.direct_blendshape:
         static_connection(each, facial_definition.direct_blendshape[each])
+    rig_tools = rigBase.RigBase()
+    rm.lock_and_hide_attributes('L_facial00_mouthCorner_ctr', bit_string='1111111111')
+    rm.lock_and_hide_attributes('C_facial00_mouth_ctr', bit_string='1111111111')
+    rm.lock_and_hide_attributes('R_facial00_mouthCorner_ctr', bit_string='1111111111')
+    rm.lock_and_hide_attributes('L_facial00_brow_ctr', bit_string='1111111111')
+
+
 
 
 def static_connection(source, destination):
