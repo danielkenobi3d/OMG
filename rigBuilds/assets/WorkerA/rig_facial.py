@@ -23,8 +23,8 @@ def create_facial_rig():
 
     facial_controls = rigBlendShapeControls.RigBlendShapeControls(root='C_facialControls_reference_pnt')
 
-    # rigFacial.RigFacial(facial_definition.definition,
-    #                     prefix_geometry_list=facial_definition.prefix_geometry_list)
+    rigFacial.RigFacial(facial_definition.definition,
+                        prefix_geometry_list=facial_definition.prefix_geometry_list)
 
     pm.parentConstraint('C_main00_head_sknjnt', facial_controls.rig_system.controls, mo=True)
     pm.scaleConstraint('C_main00_head_sknjnt', facial_controls.rig_system.controls, mo=True)
@@ -50,7 +50,7 @@ def create_jaw_layers():
     static_layer = rigStaticLayer.StaticLayer(*geometries, name='mouthOpen')
     mouth_close = rigStaticLayer.StaticLayer(*geometries, name='mouthClosed', rig_system=static_layer.rig_system)
 
-    float_switch = rigFloatSwitch.FloatSwitch(control='C_joint00_jaw_ctr', attribute_name='lipSeal')
+    float_switch = rigFloatSwitch.FloatSwitch(control='C_fk00_jaw_ctr', attribute_name='lipSeal')
 
     for index, each_geo in enumerate(geometries):
         blend_shape = rig_core.BlendShape.by_node(each_geo)

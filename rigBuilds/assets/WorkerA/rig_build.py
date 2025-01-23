@@ -1,11 +1,11 @@
-from OMG.rigBuilds.assets.Intern.custom_rig import rigBiped
+from OMG.rigBuilds.assets.WorkerA.custom_rig import rigBiped
 import pymel.core as pm
+import importlib
+importlib.reload(rigBiped)
 
 
 def custom_source():
     pm.rename('Worker_grp', 'geo')
-
-    
 
 
 def build_biped_rig():
