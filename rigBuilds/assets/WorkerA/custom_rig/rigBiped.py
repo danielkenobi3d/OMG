@@ -243,7 +243,8 @@ class RigByped(rigBase.RigBase):
         self.l_ear.set_parent(self.neck_head,  create_hierarchy_joints=True, output_joint_rig=self.rig_output)
         self.r_ear.set_parent(self.neck_head,  create_hierarchy_joints=True, output_joint_rig=self.rig_output)
 
-        self.cap.create_point_base(self.cap_root)
+
+        self.cap.create_point_base(*self.cap_root)
         self.cap.set_parent(self.neck_head,create_hierarchy_joints=True, output_joint_rig=self.rig_output)
 
         self.l_leg.set_parent(self.hip, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
