@@ -239,6 +239,9 @@ class RigByped(rigBase.RigBase):
         self.neck_head.set_parent(self.spine, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
         self.neck_head_space_switch.build(self.neck_head, self.rig_world, self.cog)
 
+        self.eyes.create_point_base(*self.eyes_root)
+        self.eyes.set_parent(self.neck_head, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
+
         l_ear_points = [each.format('L') for each in self.ears]
         self.l_ear.create_point_base(*l_ear_points, orient_type = 'point_orient')
         r_ear_points = [each.format('R') for each in self.ears]
