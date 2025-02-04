@@ -7,8 +7,9 @@ build = {
         ],
     'rig': [
         ('build biped rig', ['rig_build.build_biped_rig']),
+        ('facial_rig', ['rig_facial.build']),
         ('custom rig', ['rig_build.custom_rig']),
-        ('facial_rig', ['rig_facial.build'])
+
         ],
     'load data': [
         ('load skinning', ['rig_build.load_skinning_data']),

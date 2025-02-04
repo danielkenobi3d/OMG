@@ -205,10 +205,10 @@ class RigByped(rigBase.RigBase):
         self.hip._create_output_points(self.cog, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
         self.spine.set_parent(self.cog, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
 
-        self.l_arm.create_point_base(*[each.format('L') for each in self.arm_root])
+        self.l_arm.create_point_base(*[each.format('L') for each in self.arm_root], best_guess_point_orientation=False)
         self.l_arm.set_parent(self.spine, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
 
-        self.r_arm.create_point_base(*[each.format('R') for each in self.arm_root])
+        self.r_arm.create_point_base(*[each.format('R') for each in self.arm_root],  best_guess_point_orientation=False)
         self.r_arm.set_parent(self.spine, create_hierarchy_joints=True, output_joint_rig=self.rig_output)
 
         self.l_hand.create_point_base(*[each.format('L') for each in self.hand_root])
@@ -226,13 +226,13 @@ class RigByped(rigBase.RigBase):
 
         l_root_points = [each.format('L') for each in self.leg_root]
         l_root_points.extend([each.format('L') for each in self.feet_root])
-        self.l_leg.create_point_base(*l_root_points)
+        self.l_leg.create_point_base(*l_root_points, best_guess_point_orientation=False)
         self.l_leg_space_switch.build(self.l_leg, self.rig_world)
 
         r_root_points = [each.format('R') for each in self.leg_root]
         r_root_points.extend([each.format('R') for each in self.feet_root])
 
-        self.r_leg.create_point_base(*r_root_points)
+        self.r_leg.create_point_base(*r_root_points, best_guess_point_orientation=False)
         self.r_leg_space_switch.build(self.r_leg, self.rig_world)
 
         self.neck_head.create_point_base(*self.neck_root)
