@@ -1,5 +1,5 @@
 import pymel.core as pm
-from RMPY.rig import rigBase
+
 controls = ['nurbsCircle1', 'nurbsCircle2', 'nurbsCircle3', 'nurbsCircle4', 'nurbsCircle5']
 ik_handle = pm.ikHandle(sj= , ee=, sol="ikRPsolver", name="LimbIKHandle")
 pm.poleVectorConstraint(self.controls_dict['poleVector'], ik_handle, name="PoleVector")
