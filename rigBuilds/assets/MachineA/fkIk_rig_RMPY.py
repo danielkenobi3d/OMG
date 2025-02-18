@@ -33,6 +33,10 @@ class MyRig(rigBase.RigBase):
         self.jnt_list_result_claw03 = []
         self.ctrl_list_FK = []
         self.parent_constraints = []
+        self.parent_constraints_claw00 = []
+        self.parent_constraints_claw01 = []
+        self.parent_constraints_claw02 = []
+        self.parent_constraints_claw03 = []
 
         self.IK_ctrl = None
         self.FKrig_robot()
@@ -214,12 +218,6 @@ class MyRig(rigBase.RigBase):
 
         pm.parent(FK_jnt_grp, self.rig_system.joints)
         pm.parent(FK_ctrl_grp, self.rig_system.controls)
-        pm.setAttr('robot_FK_2_ctrl.t', lock=True)
-        pm.setAttr('robot_FK_2_ctrl.rotateX', lock=True)
-        pm.setAttr('robot_FK_2_ctrl.rotateY', lock=True)
-        pm.setAttr('robot_FK_3_ctrl.rotateY', lock=True)
-        pm.setAttr('robot_FK_3_ctrl.rotateX', lock=True)
-        pm.setAttr('robot_FK_3_ctrl.t', lock=True)
 
         # pm.group(FK_jnt_grp,FK_ctrl_grp, n='FK_rig')
 
@@ -236,7 +234,6 @@ class MyRig(rigBase.RigBase):
         self.jnt_list_IK_claw03 = []
         incr = 0
         previous_control = None
-
 
         for locator in list_objects_IK:
             position = locator.getTranslation(space='world')
@@ -276,6 +273,7 @@ class MyRig(rigBase.RigBase):
         for jnt in self.jnt_list_IK_claw01:
             pm.rename(jnt, newname=f"claw01_IK'{incr}_jnt")
             incr = incr + 1
+
         incr = 0
         pm.parent('claw01_IK_0_jnt', 'robot_IK_4_jnt')
 
@@ -292,7 +290,8 @@ class MyRig(rigBase.RigBase):
         pm.parent('claw03_IK_0_jnt', 'robot_IK_4_jnt')
 
         incr = 0
-        for jnt in zip(self.jnt_list_FK_claw00):
+        previous_control = None
+        for jnt in zip(self.jnt_list_IK_claw00):
             new_ctrl_claw00, create = pm.circle()
             pm.matchTransform(new_ctrl_claw00, jnt)
             pm.parentConstraint(new_ctrl_claw00, jnt, mo=True)
@@ -300,37 +299,40 @@ class MyRig(rigBase.RigBase):
             if not previous_control:
                 pm.rename(previous_control, newname='claw00_IK_ctrl_0')
                 claw00_IK_ctrl_grp = pm.group('claw00_IK_ctrl_0', name='claw00_IK_ctrl_grp')
+                #pm.parent('claw00_IK_ctrl_grp', 'claw00_IK_ctrl_0')
             else:
                 control_reset = pm.group(empty=True, name=f"controlReset_0{incr}")
                 pm.matchTransform(control_reset, new_ctrl_claw00)
                 pm.parent(new_ctrl_claw00, control_reset)
                 pm.parent(control_reset, previous_control)
-                pm.rename(new_ctrl_claw00, newname=f"claw00_FK'{incr}_ctrl")
-
+                pm.rename(new_ctrl_claw00, newname=f"claw00_result'{incr}_ctrl")
             previous_control = new_ctrl_claw00
             incr = incr + 1
 
         incr = 0
-        for jnt in zip(self.jnt_list_FK_claw01):
+        previous_control = None
+        for jnt in zip(self.jnt_list_IK_claw01):
             new_ctrl_claw01, create = pm.circle()
             pm.matchTransform(new_ctrl_claw01, jnt)
             pm.parentConstraint(new_ctrl_claw01, jnt, mo=True)
 
             if not previous_control:
                 pm.rename(previous_control, newname='claw01_IK_ctrl_0')
-                claw01_IK_ctrl_grp = pm.group('claw01_IK_ctrl_0', name='claw01_IK_ctrl_grp')
+                claw01_result_ctrl_grp = pm.group('claw01_IK_ctrl_0', name='claw01_IK_ctrl_grp')
+                #pm.parent('claw01_IK_ctrl_grp', 'claw01_IK_ctrl_0')
             else:
                 control_reset = pm.group(empty=True, name=f"controlReset_0{incr}")
                 pm.matchTransform(control_reset, new_ctrl_claw01)
                 pm.parent(new_ctrl_claw01, control_reset)
                 pm.parent(control_reset, previous_control)
-                pm.rename(new_ctrl_claw01, newname=f"claw01_IK'{incr}_ctrl")
+                pm.rename(new_ctrl_claw01, newname=f"claw01_result'{incr}_ctrl")
 
             previous_control = new_ctrl_claw01
             incr = incr + 1
 
         incr = 0
-        for jnt in zip(self.jnt_list_FK_claw02):
+        previous_control = None
+        for jnt in zip(self.jnt_list_IK_claw02):
             new_ctrl_claw02, create = pm.circle()
             pm.matchTransform(new_ctrl_claw02, jnt)
             pm.parentConstraint(new_ctrl_claw02, jnt, mo=True)
@@ -338,6 +340,7 @@ class MyRig(rigBase.RigBase):
             if not previous_control:
                 pm.rename(previous_control, newname='claw02_IK_ctrl_0')
                 claw02_IK_ctrl_grp = pm.group('claw02_IK_ctrl_0', name='claw02_IK_ctrl_grp')
+                #pm.parent('claw02_IK_ctrl_grp', 'claw_IKt_ctrl')
             else:
                 control_reset = pm.group(empty=True, name=f"controlReset_0{incr}")
                 pm.matchTransform(control_reset, new_ctrl_claw02)
@@ -349,7 +352,8 @@ class MyRig(rigBase.RigBase):
             incr = incr + 1
 
         incr = 0
-        for jnt in zip(self.jnt_list_FK_claw03):
+        previous_control = None
+        for jnt in zip(self.jnt_list_IK_claw03):
             new_ctrl_claw03, create = pm.circle()
             pm.matchTransform(new_ctrl_claw03, jnt)
             pm.parentConstraint(new_ctrl_claw03, jnt, mo=True)
@@ -357,12 +361,13 @@ class MyRig(rigBase.RigBase):
             if not previous_control:
                 pm.rename(previous_control, newname='claw03_IK_ctrl_0')
                 claw03_IK_ctrl_grp = pm.group('claw03_IK_ctrl_0', name='claw03_IK_ctrl_grp')
+                #pm.parent('claw03_IK_ctrl_grp', 'claw_IK_ctrl')
             else:
                 control_reset = pm.group(empty=True, name=f"controlReset_0{incr}")
                 pm.matchTransform(control_reset, new_ctrl_claw03)
                 pm.parent(new_ctrl_claw03, control_reset)
                 pm.parent(control_reset, previous_control)
-                pm.rename(new_ctrl_claw03, newname=f"claw03_IK'{incr}_ctrl")
+                pm.rename(new_ctrl_claw03, newname=f"claw03_IKt'{incr}_ctrl")
 
             previous_control = new_ctrl_claw03
             incr = incr + 1
@@ -386,6 +391,10 @@ class MyRig(rigBase.RigBase):
         pm.parent('LimbIKHandle_00', self.IK_ctrl)
         pm.parent('LimbIKHandle_01', self.IK_ctrl)
         IK_ctrl_grp = pm.group('IK_elbow_ctrl','IK_ctrl', n='IK_ctrl_grp')
+        pm.parent('claw00_IK_ctrl_grp', 'IK_ctrl')
+        pm.parent('claw01_IK_ctrl_grp', 'IK_ctrl')
+        pm.parent('claw02_IK_ctrl_grp', 'IK_ctrl')
+        pm.parent('claw03_IK_ctrl_grp', 'IK_ctrl')
 
         # IK_rig_grp = pm.group(IK_jnt_grp,IK_ctrl_grp, n='IK_rig')
         pm.parent(IK_jnt_grp, self.rig_system.joints)
@@ -433,43 +442,66 @@ class MyRig(rigBase.RigBase):
             new_joint = pm.joint(position=position)
             self.jnt_list_result_claw03.append(new_joint)
 
-
         for jnt in self.jnt_list_result:
             pm.rename(jnt, newname=f"robot_result'{incr}_jnt")
             incr = incr + 1
 
+        incr = 0
         for jnt in self.jnt_list_result_claw00:
             pm.rename(jnt, newname=f"claw00_result'{incr}_jnt")
             incr = incr + 1
-        incr = 0
 
+        incr = 0
         for jnt in self.jnt_list_result_claw01:
             pm.rename(jnt, newname=f"claw01_result'{incr}_jnt")
             incr = incr + 1
-        incr = 0
+
         pm.parent('claw01_result_0_jnt', 'robot_result_4_jnt')
 
+        incr = 0
         for jnt in self.jnt_list_result_claw02:
             pm.rename(jnt, newname=f"claw02_result'{incr}_jnt")
             incr = incr + 1
-        incr = 0
+
         pm.parent('claw02_result_0_jnt', 'robot_result_4_jnt')
 
+        incr = 0
         for jnt in self.jnt_list_result_claw03:
             pm.rename(jnt, newname=f"claw03_result'{incr}_jnt")
             incr = incr + 1
-        incr = 0
+
         pm.parent('claw03_result_0_jnt', 'robot_result_4_jnt')
 
+        incr = 0
         result_jnt_grp = pm.group(name='result_jnt_grp', empty=True)
         pm.parent('robot_result_0_jnt', result_jnt_grp)
         pm.parent(result_jnt_grp, self.rig_system.joints)
-
+        pm.group(name='claw_result_ctrl', empty=True)
 
         for fk_joint, ik_joint, result_jnt in zip(self.jnt_list_FK, self.jnt_list_IK, self.jnt_list_result):
             pm.parentConstraint(fk_joint, result_jnt)
             parent_constraint = pm.parentConstraint(ik_joint, result_jnt)
             self.parent_constraints.append(parent_constraint)
+
+        for fk_joint, ik_joint, result_jnt in zip(self.jnt_list_FK_claw00, self.jnt_list_IK_claw00, self.jnt_list_result_claw00):
+            pm.parentConstraint(fk_joint, result_jnt)
+            parent_constraint = pm.parentConstraint(ik_joint, result_jnt)
+            self.parent_constraints_claw00.append(parent_constraint)
+
+        #for fk_joint, ik_joint, result_jnt in zip(self.jnt_list_result_claw01, self.jnt_list_IK_claw01, self.jnt_list_FK_claw01):
+            #pm.parentConstraint(fk_joint, result_jnt)
+            #parent_constraint = pm.parentConstraint(ik_joint, result_jnt)
+            #self.parent_constraints_claw01.append(parent_constraint)
+
+        #for fk_joint, ik_joint, result_jnt in zip(self.jnt_list_result_claw02, self.jnt_list_IK_claw02, self.jnt_list_FK_claw02):
+            #pm.parentConstraint(fk_joint, result_jnt)
+            #parent_constraint = pm.parentConstraint(ik_joint, result_jnt)
+            #self.parent_constraints_claw02.append(parent_constraint)
+
+        #for fk_joint, ik_joint, result_jnt in zip(self.jnt_list_result_claw03, self.jnt_list_IK_claw03, self.jnt_list_FK_claw03):
+            #pm.parentConstraint(fk_joint, result_jnt)
+            #parent_constraint = pm.parentConstraint(ik_joint, result_jnt)
+            #self.parent_constraints_claw03.append(parent_constraint)
 
     def IKFK_switch(self):
         IKFK_switch_ctrl, create = pm.circle()
@@ -497,6 +529,30 @@ class MyRig(rigBase.RigBase):
         multiply2.output >> reverse.inputX
 
         for each_parent_constraint in self.parent_constraints:
+            weights = each_parent_constraint.getWeightAliasList()
+
+            multiply1.output >> weights[1]
+            reverse.outputX >> weights[0]
+
+        for each_parent_constraint in self.parent_constraints_claw00:
+            weights = each_parent_constraint.getWeightAliasList()
+
+            multiply1.output >> weights[1]
+            reverse.outputX >> weights[0]
+
+        for each_parent_constraint in self.parent_constraints_claw01:
+            weights = each_parent_constraint.getWeightAliasList()
+
+            multiply1.output >> weights[1]
+            reverse.outputX >> weights[0]
+
+        for each_parent_constraint in self.parent_constraints_claw02:
+            weights = each_parent_constraint.getWeightAliasList()
+
+            multiply1.output >> weights[1]
+            reverse.outputX >> weights[0]
+
+        for each_parent_constraint in self.parent_constraints_claw03:
             weights = each_parent_constraint.getWeightAliasList()
 
             multiply1.output >> weights[1]
