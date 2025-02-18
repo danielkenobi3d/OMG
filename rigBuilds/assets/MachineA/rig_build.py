@@ -7,10 +7,10 @@ import pymel.core as pm
 from pathlib import Path
 from ufe.PyUfe.PathString import string
 from RMPY.rig import rigBase
-#from OMG.rigBuilds.assets.MachineB import fkIk_rig
-from OMG.rigBuilds.assets.MachineB import fkIk_rig_RMPY
+
+from OMG.rigBuilds.assets.MachineA import fkIk_rig_RMPY
 import importlib
-#importlib.reload(fkIk_rig)
+
 importlib.reload(fkIk_rig_RMPY)
 
 def import_geometry():

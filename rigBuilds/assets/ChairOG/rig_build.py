@@ -7,9 +7,9 @@ import pymel.core as pm
 from pathlib import Path
 from ufe.PyUfe.PathString import string
 from RMPY.rig import rigBase
-#from OMG.rigBuilds.assets.MachineB import fkIk_rig
-from OMG.rigBuilds.assets.MachineB import fkIk_rig_RMPY
+from OMG.rigBuilds.assets.ChairOG import fkIk_rig_RMPY
 import importlib
+importlib.reload(fkIk_rig_RMPY)
 
 def import_geometry():
     env = environment.Environment()
@@ -20,7 +20,7 @@ def import_reference_points():
         data_save_load.import_maya_file(each)
 
 def custom_rig():
-    
+    robot_rig = fkIk_rig_RMPY.MyRig()
 
 
 def load_skinning_data():
